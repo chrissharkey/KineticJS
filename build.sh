@@ -5,3 +5,4 @@ php ./generate.php ./global.json ./static
 cd ../
 cp ./daux.io/static/* ./ -rf
 rm -r ./daux.io//static
+echo "Doc generated!"
