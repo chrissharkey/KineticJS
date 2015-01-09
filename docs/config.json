@@ -17,7 +17,7 @@
             "folders": ["99_Not_Ready"]
     },
     "twitter": ["lavrton"],
-    "google_analytics": "",
+    "google_analytics": "UA-54202824-2",
     "links": {
         "API reference": "http://lavrton.github.io/KineticJS/api",
         "Download": "https://github.com/lavrton/KineticJS/releases",
