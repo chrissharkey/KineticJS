@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ./daux.io
-/php.exe ./generate.php ./global.json ./static
+php ./generate.php ./global.json ./static
 cd ../
 cp ./daux.io/static/* ./ -rf
 rm -r ./daux.io//static
