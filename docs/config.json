@@ -19,6 +19,7 @@
     "twitter": ["lavrton"],
     "google_analytics": "",
     "links": {
+        "API reference": "http://lavrton.github.io/KineticJS/api",
         "Download": "https://github.com/lavrton/KineticJS/releases",
         "GitHub Repo": "https://github.com/lavrton/KineticJS",
         "Help/Support/Bugs": "https://github.com/lavrton/KineticJS/issues"
