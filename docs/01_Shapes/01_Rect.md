@@ -1,6 +1,7 @@
-To create  a rectangle with `KineticJS`, we can instantiate a `Kinetic.Rect()` object.  For a full list of attributes and methods, check out the [Kinetic.Rect documentation](http://kineticjs.com/docs/Kinetic.Rect.html).
+To create  a rectangle with `KineticJS`, we can instantiate a `Kinetic.Rect()` object.  For a full list of attributes and methods, check out the [Kinetic.Rect documentation](http://lavrton.github.io/KineticJS/api/Kinetic.Rect.html).
 
-<iframe width="350" height="350" src="../Examples/Shapes/Rect.html" frameborder="0" allowfullscreen></iframe>
+<a class="jsbin-embed" href="http://jsbin.com/mutuyu/1/embed?html,js,output">KineticJS Rect Demo</a>
+<script src="http://static.jsbin.com/js/embed.js"></script>
 
 ```html
 <!DOCTYPE HTML>
