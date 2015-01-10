@@ -59,50 +59,12 @@
                                     <span style="float: left; font-size: 10px; color: gray;">
                                         Friday, January 9, 2015                                    </span>
                                     <span style="float: right; font-size: 10px; color: gray;">
-                                        2:59 AM                                    </span>
+                                        8:58 PM                                    </span>
                                 </div>
                             
-                            <p>To create a regular polygon with <code>KineticJS</code>, we can instantiate a <code>Kinetic.RegularPolygon()</code> object.  For a full list of attributes and methods, check out the <a href="http://kineticjs.com/docs/Kinetic.RegularPolygon.html">Kinetic.RegularPolygon documentation</a>.</p>
-<p><iframe width="650" height="350" src="../Examples/Shapes/RegularPolygon.html" frameborder="0" allowfullscreen></iframe></p>
-<pre><code class="language-html">&lt;!DOCTYPE HTML&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;style&gt;
-      body {
-        margin: 0px;
-        padding: 0px;
-      }
-    &lt;/style&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="container"&gt;&lt;/div&gt;
-    &lt;script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.1.0.min.js"&gt;&lt;/script&gt;
-    &lt;script defer="defer"&gt;
-      var stage = new Kinetic.Stage({
-        container: 'container',
-        width: 600,
-        height: 300
-      });
-
-      var layer = new Kinetic.Layer();
-
-      var hexagon = new Kinetic.RegularPolygon({
-        x: 100,
-        y: 150,
-        sides: 6,
-        radius: 70,
-        fill: 'red',
-        stroke: 'black',
-        strokeWidth: 4
-      });
-
-      layer.add(hexagon);
-
-      // add the layer to the stage
-      stage.add(layer);
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>                                                    </article>
+                            <p>To create a regular polygon with <code>KineticJS</code>, we can instantiate a <code>Kinetic.RegularPolygon()</code> object.</p>
+<p>For a full list of attributes and methods, check out the <a href="http://lavrton.github.io/KineticJS/api/Kinetic.RegularPolygon.html">Kinetic.RegularPolygon documentation</a>.</p>
+<p><a class="jsbin-embed" href="http://jsbin.com/xosiha/1/embed?js,output">KineticJS Regular Polygon Demo</a><script src="http://static.jsbin.com/js/embed.js"></script></p>                                                    </article>
                     </div>
                 </div>
             </div>

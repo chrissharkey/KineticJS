@@ -59,53 +59,12 @@
                                     <span style="float: left; font-size: 10px; color: gray;">
                                         Friday, January 9, 2015                                    </span>
                                     <span style="float: right; font-size: 10px; color: gray;">
-                                        2:59 AM                                    </span>
+                                        8:57 PM                                    </span>
                                 </div>
                             
-                            <p>To create a wedge with <code>KineticJS</code>, we can instantiate a <code>Kinetic.Wedge()</code> object.  For a full list of attributes and methods, check out the <a href="http://kineticjs.com/docs/Kinetic.Wedge.html">Kinetic.Wedge documentation</a>.</p>
-<p><iframe width="350" height="350" src="../Examples/Shapes/Wedge.html" frameborder="0" allowfullscreen></iframe></p>
-<pre><code class="language-html">&lt;!DOCTYPE HTML&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;style&gt;
-      body {
-        margin: 0px;
-        padding: 0px;
-      }
-    &lt;/style&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="container"&gt;&lt;/div&gt;
-    &lt;script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.1.0.min.js"&gt;&lt;/script&gt;
-    &lt;script defer="defer"&gt;
-      var stage = new Kinetic.Stage({
-        container: 'container',
-        width: 300,
-        height: 300
-      });
-
-      var layer = new Kinetic.Layer();
-
-      var wedge = new Kinetic.Wedge({
-        x: stage.getWidth() / 2,
-        y: stage.getHeight() / 2,
-        radius: 70,
-        angleDeg: 60,
-        fill: 'red',
-        stroke: 'black',
-        strokeWidth: 4,
-        rotationDeg: -120
-      });
-
-      // add the shape to the layer
-      layer.add(wedge);
-
-      // add the layer to the stage
-      stage.add(layer);
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>                                                    </article>
+                            <p>To create a wedge with <code>KineticJS</code>, we can instantiate a <code>Kinetic.Wedge()</code> object.</p>
+<p>For a full list of attributes and methods, check out the <a href="http://lavrton.github.io/KineticJS/api/Kinetic.Wedge.html">Kinetic.Wedge documentation</a>.</p>
+<p><a class="jsbin-embed" href="http://jsbin.com/cewel/1/embed?js,output">KineticJS Wedge Demo</a><script src="http://static.jsbin.com/js/embed.js"></script></p>                                                    </article>
                     </div>
                 </div>
             </div>
