@@ -1,3 +1,6 @@
+
+#HTML5 Canvas KineticJS Custom S Tutorial
+
 To create a custom shape with KineticJS, we can instantiate a `Kinetic.Shape()` object. 
 
 When creating a custom shape, we need to define a drawing function that is passed a Kinetic.Canvas renderer.

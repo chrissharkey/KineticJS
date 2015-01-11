@@ -1,4 +1,6 @@
 
+#HTML5 Canvas Set Fill with KineticJS
+
 To fill a shape with KineticJS, we can set the fill property when we instantiate a shape, or we can use the `fill()` method.
 
 KineticJS supports colors, patterns, linear gradients, and radial gradients.

@@ -1,4 +1,6 @@
 
+#HTML5 Canvas KineticJS Text Tutorial
+
 To create a text with `KineticJS`, we can instantiate a `Kinetic.Text()` object.
 
 For a full list of attributes and methods, check out the [Kinetic.Text documentation](http://lavrton.github.io/KineticJS/api/Kinetic.Text.html).

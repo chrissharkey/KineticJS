@@ -1,4 +1,6 @@
 
+#HTML5 Canvas KineticJS Label Tutorial
+
 To create an SVG path with KineticJS, we can instantiate a `Kinetic.Path()` object.
 
 Paths are most commonly used when we want to export an SVG Path into an HTML5 Canvas path, or if we want to manifest complex drawings as a data string rather than creating a custom shape.

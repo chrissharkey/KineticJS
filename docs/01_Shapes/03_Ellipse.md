@@ -1,4 +1,6 @@
 
+#HTML5 Canvas KineticJS Ellipse Tutorial
+
 To create a ellipse with `KineticJS`, we can instantiate a `Kinetic.Ellipse()` object.
 
 For a full list of attributes and methods, check out the [Kinetic.Ellipse documentation](http://lavrton.github.io/KineticJS/api/Kinetic.Ellipse.html).

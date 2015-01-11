@@ -1,4 +1,6 @@
 
+#HTML5 Canvas KineticJS Te Tutorial
+
 To create  a text path with `KineticJS`, we can instantiate a `Kinetic.TextPath()` object.
 
 For a full list of attributes and methods, check out the [Kinetic.TextPath documentation](http://lavrton.github.io/KineticJS/api/Kinetic.T.html).

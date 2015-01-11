@@ -1,4 +1,6 @@
 
+#HTML5 Canvas KineticJS Pol Tutorial
+
 To create a polygon with `KineticJS`, we can instantiate a `Kinetic.Line()` object with `closed = true` attribute.
 
 For a full list of attributes and methods, check out the [Kinetic.Line documentation](http://lavrton.github.io/KineticJS/api/Kinetic.Line.html).
