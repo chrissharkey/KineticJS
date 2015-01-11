@@ -1,9 +1,8 @@
 
-#HTML5 Canvas KineticJS Shadows
+#HTML5 Canvas Set Shape Stroke Color and Width with KineticJS
 
-To apply shadows with KineticJS, we can set the `shadowColor`, `shadowOffset`, `shadowBlur`, and `shadowOpacity` properties when we instantiate a shape.
+To set a shape stroke and stroke width with KineticJS, we can set the `stroke` and `strokeWidth` properties when we instantiate a shape, or we can use the `stroke()` and `strokeWidth()` methods.
 
-We can adjust the shadow properties after instantiation by using the `shadowColor()`, `shadowOffset()`, `shadowBlur()`, and `shadowOpacity()` methods.
+Instructions: Mouseover the pentagon to change its stroke color and width.
 
-
-<a class="jsbin-embed" href="http://jsbin.com/sugel/1/embed?js,output">KineticJS Shadows Demo</a><script src="http://static.jsbin.com/js/embed.js"></script>
+<a class="jsbin-embed" href="http://jsbin.com/zacehu/1/embed?js,output">KineticJS Stroke Demo</a><script src="http://static.jsbin.com/js/embed.js"></script>
