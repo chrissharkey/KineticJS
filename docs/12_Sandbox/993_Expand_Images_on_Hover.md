@@ -1,5 +1,5 @@
 
-#HTML5 Canvas Expand Image on Hover
+#HTML5 Canvas Expand Image on Hover  with KineticJS
 
 Instructions: Mouseover images.
 
