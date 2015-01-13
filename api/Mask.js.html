@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>KineticJS Source: filters/Mask.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">KineticJS</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Kinetic.html">Kinetic</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Easings.html">Kinetic.Easings</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Filters.html">Kinetic.Filters</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Util.html">Kinetic.Util</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Kinetic.Animation.html">Kinetic.Animation</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Arc.html">Kinetic.Arc</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Arrow.html">Kinetic.Arrow</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.BaseLayer.html">Kinetic.BaseLayer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Canvas.html">Kinetic.Canvas</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Circle.html">Kinetic.Circle</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Collection.html">Kinetic.Collection</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Container.html">Kinetic.Container</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Context.html">Kinetic.Context</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Ellipse.html">Kinetic.Ellipse</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.FastLayer.html">Kinetic.FastLayer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Group.html">Kinetic.Group</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Image.html">Kinetic.Image</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Label.html">Kinetic.Label</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Layer.html">Kinetic.Layer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Line.html">Kinetic.Line</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Node.html">Kinetic.Node</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Path.html">Kinetic.Path</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Rect.html">Kinetic.Rect</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.RegularPolygon.html">Kinetic.RegularPolygon</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Ring.html">Kinetic.Ring</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Shape.html">Kinetic.Shape</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Sprite.html">Kinetic.Sprite</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Stage.html">Kinetic.Stage</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Star.html">Kinetic.Star</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Tag.html">Kinetic.Tag</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Text.html">Kinetic.Text</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.TextPath.html">Kinetic.TextPath</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Transform.html">Kinetic.Transform</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Tween.html">Kinetic.Tween</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Wedge.html">Kinetic.Wedge</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: filters/Mask.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">(function() {
+
+	function pixelAt(idata, x, y) {
+		var idx = (y * idata.width + x) * 4;
+		var d = [];
+		d.push(idata.data[idx++], idata.data[idx++], idata.data[idx++], idata.data[idx++]);
+		return d;
+	}
+
+	function rgbDistance(p1, p2) {
+		return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2) + Math.pow(p1[2] - p2[2], 2));
+	}
+
+	function rgbMean(pTab) {
+		var m = [0, 0, 0];
+
+		for (var i = 0; i &lt; pTab.length; i++) {
+			m[0] += pTab[i][0];
+			m[1] += pTab[i][1];
+			m[2] += pTab[i][2];
+		}
+
+		m[0] /= pTab.length;
+		m[1] /= pTab.length;
+		m[2] /= pTab.length;
+
+		return m;
+	}
+
+	function backgroundMask(idata, threshold) {
+		var rgbv_no = pixelAt(idata, 0, 0);
+		var rgbv_ne = pixelAt(idata, idata.width - 1, 0);
+		var rgbv_so = pixelAt(idata, 0, idata.height - 1);
+		var rgbv_se = pixelAt(idata, idata.width - 1, idata.height - 1);
+
+
+		var thres = threshold || 10;
+		if (rgbDistance(rgbv_no, rgbv_ne) &lt; thres && rgbDistance(rgbv_ne, rgbv_se) &lt; thres && rgbDistance(rgbv_se, rgbv_so) &lt; thres && rgbDistance(rgbv_so, rgbv_no) &lt; thres) {
+
+			// Mean color
+			var mean = rgbMean([rgbv_ne, rgbv_no, rgbv_se, rgbv_so]);
+
+			// Mask based on color distance
+			var mask = [];
+			for (var i = 0; i &lt; idata.width * idata.height; i++) {
+				var d = rgbDistance(mean, [idata.data[i * 4], idata.data[i * 4 + 1], idata.data[i * 4 + 2]]);
+				mask[i] = (d &lt; thres) ? 0 : 255;
+			}
+
+			return mask;
+		}
+	}
+
+	function applyMask(idata, mask) {
+		for (var i = 0; i &lt; idata.width * idata.height; i++) {
+			idata.data[4 * i + 3] = mask[i];
+		}
+	}
+
+	function erodeMask(mask, sw, sh) {
+
+		var weights = [1, 1, 1, 1, 0, 1, 1, 1, 1];
+		var side = Math.round(Math.sqrt(weights.length));
+		var halfSide = Math.floor(side / 2);
+
+		var maskResult = [];
+		for (var y = 0; y &lt; sh; y++) {
+			for (var x = 0; x &lt; sw; x++) {
+
+				var so = y * sw + x;
+				var a = 0;
+				for (var cy = 0; cy &lt; side; cy++) {
+					for (var cx = 0; cx &lt; side; cx++) {
+						var scy = y + cy - halfSide;
+						var scx = x + cx - halfSide;
+
+						if (scy >= 0 && scy &lt; sh && scx >= 0 && scx &lt; sw) {
+
+							var srcOff = scy * sw + scx;
+							var wt = weights[cy * side + cx];
+
+							a += mask[srcOff] * wt;
+						}
+					}
+				}
+
+				maskResult[so] = (a === 255 * 8) ? 255 : 0;
+			}
+		}
+
+		return maskResult;
+	}
+
+	function dilateMask(mask, sw, sh) {
+
+		var weights = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+		var side = Math.round(Math.sqrt(weights.length));
+		var halfSide = Math.floor(side / 2);
+
+		var maskResult = [];
+		for (var y = 0; y &lt; sh; y++) {
+			for (var x = 0; x &lt; sw; x++) {
+
+				var so = y * sw + x;
+				var a = 0;
+				for (var cy = 0; cy &lt; side; cy++) {
+					for (var cx = 0; cx &lt; side; cx++) {
+						var scy = y + cy - halfSide;
+						var scx = x + cx - halfSide;
+
+						if (scy >= 0 && scy &lt; sh && scx >= 0 && scx &lt; sw) {
+
+							var srcOff = scy * sw + scx;
+							var wt = weights[cy * side + cx];
+
+							a += mask[srcOff] * wt;
+						}
+					}
+				}
+
+				maskResult[so] = (a >= 255 * 4) ? 255 : 0;
+			}
+		}
+
+		return maskResult;
+	}
+
+	function smoothEdgeMask(mask, sw, sh) {
+
+		var weights = [1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9];
+		var side = Math.round(Math.sqrt(weights.length));
+		var halfSide = Math.floor(side / 2);
+
+		var maskResult = [];
+		for (var y = 0; y &lt; sh; y++) {
+			for (var x = 0; x &lt; sw; x++) {
+
+				var so = y * sw + x;
+				var a = 0;
+				for (var cy = 0; cy &lt; side; cy++) {
+					for (var cx = 0; cx &lt; side; cx++) {
+						var scy = y + cy - halfSide;
+						var scx = x + cx - halfSide;
+
+						if (scy >= 0 && scy &lt; sh && scx >= 0 && scx &lt; sw) {
+
+							var srcOff = scy * sw + scx;
+							var wt = weights[cy * side + cx];
+
+							a += mask[srcOff] * wt;
+						}
+					}
+				}
+
+				maskResult[so] = a;
+			}
+		}
+
+		return maskResult;
+	}
+	
+	/**
+	 * Mask Filter
+	 * @function
+	 * @name Mask
+	 * @memberof Kinetic.Filters
+	 * @param {Object} imageData
+	 * @example
+     * node.cache();
+     * node.filters([Kinetic.Filters.Mask]);
+     * node.threshold(0.1);
+	 */
+	Kinetic.Filters.Mask = function(imageData) {
+		// Detect pixels close to the background color
+		var threshold = this.threshold(),
+        mask = backgroundMask(imageData, threshold);
+		if (mask) {
+			// Erode
+			mask = erodeMask(mask, imageData.width, imageData.height);
+
+			// Dilate
+			mask = dilateMask(mask, imageData.width, imageData.height);
+
+			// Gradient
+			mask = smoothEdgeMask(mask, imageData.width, imageData.height);
+
+			// Apply mask
+			applyMask(imageData, mask);
+			
+			// todo : Update hit region function according to mask
+		}
+
+		return imageData;
+	};
+
+	Kinetic.Factory.addGetterSetter(Kinetic.Node, 'threshold', 0, null, Kinetic.Factory.afterSetFilter);
+})();
+</pre>
+	</article>
+</section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="copyright">
+		KineticJS Copyright © 2015 The contributors to the KineticJS project.
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Tue Jan 13th 2015 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : true,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+	<script>
+		(function ( i, s, o, g, r, a, m ) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push( arguments )
+			}, i[r].l = 1 * new Date();
+			a = s.createElement( o ),
+				m = s.getElementsByTagName( o )[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore( a, m )
+		})( window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga' );
+
+		ga( 'create', 'UA-54202824-2', 'http://lavrton.github.io/KineticJS' );
+		ga( 'send', 'pageview' );
+	</script>
+	
+
+</body>
+</html>

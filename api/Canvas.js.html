@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>KineticJS Source: Canvas.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">KineticJS</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Kinetic.html">Kinetic</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Easings.html">Kinetic.Easings</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Filters.html">Kinetic.Filters</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Util.html">Kinetic.Util</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Kinetic.Animation.html">Kinetic.Animation</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Arc.html">Kinetic.Arc</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Arrow.html">Kinetic.Arrow</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.BaseLayer.html">Kinetic.BaseLayer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Canvas.html">Kinetic.Canvas</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Circle.html">Kinetic.Circle</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Collection.html">Kinetic.Collection</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Container.html">Kinetic.Container</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Context.html">Kinetic.Context</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Ellipse.html">Kinetic.Ellipse</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.FastLayer.html">Kinetic.FastLayer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Group.html">Kinetic.Group</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Image.html">Kinetic.Image</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Label.html">Kinetic.Label</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Layer.html">Kinetic.Layer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Line.html">Kinetic.Line</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Node.html">Kinetic.Node</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Path.html">Kinetic.Path</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Rect.html">Kinetic.Rect</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.RegularPolygon.html">Kinetic.RegularPolygon</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Ring.html">Kinetic.Ring</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Shape.html">Kinetic.Shape</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Sprite.html">Kinetic.Sprite</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Stage.html">Kinetic.Stage</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Star.html">Kinetic.Star</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Tag.html">Kinetic.Tag</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Text.html">Kinetic.Text</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.TextPath.html">Kinetic.TextPath</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Transform.html">Kinetic.Transform</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Tween.html">Kinetic.Tween</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Wedge.html">Kinetic.Wedge</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: Canvas.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">(function() {
+    // calculate pixel ratio
+    var canvas = Kinetic.Util.createCanvasElement(),
+        context = canvas.getContext('2d'),
+        // if using a mobile device, calculate the pixel ratio.  Otherwise, just use
+        // 1.  For desktop browsers, if the user has zoom enabled, it affects the pixel ratio
+        // and causes artifacts on the canvas.  As of 02/26/2014, there doesn't seem to be a way
+        // to reliably calculate the browser zoom for modern browsers, which is why we just set
+        // the pixel ratio to 1 for desktops
+        _pixelRatio = Kinetic.UA.mobile ? (function() {
+            var devicePixelRatio = window.devicePixelRatio || 1,
+            backingStoreRatio = context.webkitBackingStorePixelRatio
+                || context.mozBackingStorePixelRatio
+                || context.msBackingStorePixelRatio
+                || context.oBackingStorePixelRatio
+                || context.backingStorePixelRatio
+                || 1;
+            return devicePixelRatio / backingStoreRatio;
+        })() : 1;
+
+    /**
+     * Canvas Renderer constructor
+     * @constructor
+     * @abstract
+     * @memberof Kinetic
+     * @param {Object} config
+     * @param {Number} config.width
+     * @param {Number} config.height
+     * @param {Number} config.pixelRatio KineticJS automatically handles pixel ratio adjustments in order to render crisp drawings
+     *  on all devices. Most desktops, low end tablets, and low end phones, have device pixel ratios
+     *  of 1.  Some high end tablets and phones, like iPhones and iPads (not the mini) have a device pixel ratio 
+     *  of 2.  Some Macbook Pros, and iMacs also have a device pixel ratio of 2.  Some high end Android devices have pixel 
+     *  ratios of 2 or 3.  Some browsers like Firefox allow you to configure the pixel ratio of the viewport.  Unless otherwise
+     *  specified, the pixel ratio will be defaulted to the actual device pixel ratio.  You can override the device pixel
+     *  ratio for special situations, or, if you don't want the pixel ratio to be taken into account, you can set it to 1.
+     */
+    Kinetic.Canvas = function(config) {
+        this.init(config);
+    };
+
+    Kinetic.Canvas.prototype = {
+        init: function(config) {
+            var conf = config || {};
+
+            var pixelRatio = conf.pixelRatio || Kinetic.pixelRatio || _pixelRatio;
+
+            this.pixelRatio = pixelRatio;
+            this._canvas = Kinetic.Util.createCanvasElement();
+
+            // set inline styles
+            this._canvas.style.padding = 0;
+            this._canvas.style.margin = 0;
+            this._canvas.style.border = 0;
+            this._canvas.style.background = 'transparent';
+            this._canvas.style.position = 'absolute';
+            this._canvas.style.top = 0;
+            this._canvas.style.left = 0;
+        },
+        /**
+         * get canvas context
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @returns {CanvasContext} context
+         */
+        getContext: function() {
+            return this.context;
+        },
+        /**
+         * get pixel ratio
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @returns {Number} pixel ratio
+         */
+        getPixelRatio: function() {
+            return this.pixelRatio;
+        },
+        /**
+         * get pixel ratio
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @param {Number} pixelRatio KineticJS automatically handles pixel ratio adustments in order to render crisp drawings 
+         *  on all devices. Most desktops, low end tablets, and low end phones, have device pixel ratios
+         *  of 1.  Some high end tablets and phones, like iPhones and iPads (not the mini) have a device pixel ratio 
+         *  of 2.  Some Macbook Pros, and iMacs also have a device pixel ratio of 2.  Some high end Android devices have pixel 
+         *  ratios of 2 or 3.  Some browsers like Firefox allow you to configure the pixel ratio of the viewport.  Unless otherwise
+         *  specificed, the pixel ratio will be defaulted to the actual device pixel ratio.  You can override the device pixel
+         *  ratio for special situations, or, if you don't want the pixel ratio to be taken into account, you can set it to 1.
+         */
+        setPixelRatio: function(pixelRatio) {
+            this.pixelRatio = pixelRatio;
+            this.setSize(this.getWidth(), this.getHeight());
+        },
+        /**
+         * set width
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @param {Number} width
+         */
+        setWidth: function(width) {
+            // take into account pixel ratio
+            this.width = this._canvas.width = width * this.pixelRatio;
+            this._canvas.style.width = width + 'px';
+        },
+        /**
+         * set height
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @param {Number} height
+         */
+        setHeight: function(height) {
+            // take into account pixel ratio
+            this.height = this._canvas.height = height * this.pixelRatio;
+            this._canvas.style.height = height + 'px';
+        },
+        /**
+         * get width
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @returns {Number} width
+         */
+        getWidth: function() {
+            return this.width;
+        },
+        /**
+         * get height
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @returns {Number} height
+         */
+        getHeight: function() {
+            return this.height;
+        },
+        /**
+         * set size
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @param {Number} width
+         * @param {Number} height
+         */
+        setSize: function(width, height) {
+            this.setWidth(width);
+            this.setHeight(height);
+        },
+        /**
+         * to data url
+         * @method
+         * @memberof Kinetic.Canvas.prototype
+         * @param {String} mimeType
+         * @param {Number} quality between 0 and 1 for jpg mime types
+         * @returns {String} data url string
+         */
+        toDataURL: function(mimeType, quality) {
+            try {
+                // If this call fails (due to browser bug, like in Firefox 3.6),
+                // then revert to previous no-parameter image/png behavior
+                return this._canvas.toDataURL(mimeType, quality);
+            }
+            catch(e) {
+                try {
+                    return this._canvas.toDataURL();
+                }
+                catch(err) {
+                    Kinetic.Util.warn('Unable to get data URL. ' + err.message);
+                    return '';
+                }
+            }
+        }
+    };
+
+    Kinetic.SceneCanvas = function(config) {
+        var conf = config || {};
+        var width = conf.width || 0,
+            height = conf.height || 0;
+
+        Kinetic.Canvas.call(this, conf);
+        this.context = new Kinetic.SceneContext(this);
+        this.setSize(width, height);
+    };
+
+    Kinetic.SceneCanvas.prototype = {
+        setWidth: function(width) {
+            var pixelRatio = this.pixelRatio,
+                _context = this.getContext()._context;
+
+            Kinetic.Canvas.prototype.setWidth.call(this, width);
+            _context.scale(pixelRatio, pixelRatio);
+        },
+        setHeight: function(height) {
+            var pixelRatio = this.pixelRatio,
+                _context = this.getContext()._context;
+
+            Kinetic.Canvas.prototype.setHeight.call(this, height);
+            _context.scale(pixelRatio, pixelRatio);
+        }
+    };
+    Kinetic.Util.extend(Kinetic.SceneCanvas, Kinetic.Canvas);
+
+    Kinetic.HitCanvas = function(config) {
+        var conf = config || {};
+        var width = conf.width || 0,
+            height = conf.height || 0;
+            
+        Kinetic.Canvas.call(this, conf);
+        this.context = new Kinetic.HitContext(this);
+        this.setSize(width, height);
+        this.hitCanvas = true;
+    };
+    Kinetic.Util.extend(Kinetic.HitCanvas, Kinetic.Canvas);
+
+})();
+</pre>
+	</article>
+</section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="copyright">
+		KineticJS Copyright © 2015 The contributors to the KineticJS project.
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Tue Jan 13th 2015 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : true,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+	<script>
+		(function ( i, s, o, g, r, a, m ) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push( arguments )
+			}, i[r].l = 1 * new Date();
+			a = s.createElement( o ),
+				m = s.getElementsByTagName( o )[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore( a, m )
+		})( window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga' );
+
+		ga( 'create', 'UA-54202824-2', 'http://lavrton.github.io/KineticJS' );
+		ga( 'send', 'pageview' );
+	</script>
+	
+
+</body>
+</html>

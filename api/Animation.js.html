@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>KineticJS Source: Animation.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">KineticJS</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Kinetic.html">Kinetic</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Easings.html">Kinetic.Easings</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Filters.html">Kinetic.Filters</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Util.html">Kinetic.Util</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="Kinetic.Animation.html">Kinetic.Animation</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Arc.html">Kinetic.Arc</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Arrow.html">Kinetic.Arrow</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.BaseLayer.html">Kinetic.BaseLayer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Canvas.html">Kinetic.Canvas</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Circle.html">Kinetic.Circle</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Collection.html">Kinetic.Collection</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Container.html">Kinetic.Container</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Context.html">Kinetic.Context</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Ellipse.html">Kinetic.Ellipse</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.FastLayer.html">Kinetic.FastLayer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Group.html">Kinetic.Group</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Image.html">Kinetic.Image</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Label.html">Kinetic.Label</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Layer.html">Kinetic.Layer</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Line.html">Kinetic.Line</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Node.html">Kinetic.Node</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Path.html">Kinetic.Path</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Rect.html">Kinetic.Rect</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.RegularPolygon.html">Kinetic.RegularPolygon</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Ring.html">Kinetic.Ring</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Shape.html">Kinetic.Shape</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Sprite.html">Kinetic.Sprite</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Stage.html">Kinetic.Stage</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Star.html">Kinetic.Star</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Tag.html">Kinetic.Tag</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Text.html">Kinetic.Text</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.TextPath.html">Kinetic.TextPath</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Transform.html">Kinetic.Transform</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Tween.html">Kinetic.Tween</a>
+						</li>
+						
+						<li>
+							<a href="Kinetic.Wedge.html">Kinetic.Wedge</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: Animation.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">(function() {
+    var BATCH_DRAW_STOP_TIME_DIFF = 500;
+
+    var now =(function() {
+        if (Kinetic.root.performance && Kinetic.root.performance.now) {
+            return function() {
+                return Kinetic.root.performance.now();
+            };
+        }
+        else {
+            return function() {
+                return new Date().getTime();
+            };
+        }
+    })();
+
+    var RAF = (function() {
+        return Kinetic.root.requestAnimationFrame
+            || Kinetic.root.webkitRequestAnimationFrame
+            || Kinetic.root.mozRequestAnimationFrame
+            || Kinetic.root.oRequestAnimationFrame
+            || Kinetic.root.msRequestAnimationFrame
+            || FRAF;
+    })();
+
+    function FRAF(callback) {
+        setTimeout(callback, 1000 / 60);
+    }
+
+    function requestAnimFrame() {
+        return RAF.apply(Kinetic.root, arguments);
+    }
+    
+    /**
+     * Animation constructor.  A stage is used to contain multiple layers and handle
+     * @constructor
+     * @memberof Kinetic
+     * @param {Function} func function executed on each animation frame.  The function is passed a frame object, which contains
+     *  timeDiff, lastTime, time, and frameRate properties.  The timeDiff property is the number of milliseconds that have passed
+     *  since the last animation frame.  The lastTime property is time in milliseconds that elapsed from the moment the animation started
+     *  to the last animation frame.  The time property is the time in milliseconds that ellapsed from the moment the animation started
+     *  to the current animation frame.  The frameRate property is the current frame rate in frames / second. Return false from function,
+     *  if you don't need to redraw layer/layers on some frames.
+     * @param {Kinetic.Layer|Array} [layers] layer(s) to be redrawn on each animation frame. Can be a layer, an array of layers, or null.
+     *  Not specifying a node will result in no redraw.
+     * @example
+     * // move a node to the right at 50 pixels / second
+     * var velocity = 50;
+     *
+     * var anim = new Kinetic.Animation(function(frame) {
+     *   var dist = velocity * (frame.timeDiff / 1000);
+     *   node.move(dist, 0);
+     * }, layer);
+     *
+     * anim.start();
+     */
+    Kinetic.Animation = function(func, layers) {
+        var Anim = Kinetic.Animation;
+        this.func = func;
+        this.setLayers(layers);
+        this.id = Anim.animIdCounter++;
+        this.frame = {
+            time: 0,
+            timeDiff: 0,
+            lastTime: now()
+        };
+    };
+    /*
+     * Animation methods
+     */
+    Kinetic.Animation.prototype = {
+        /**
+         * set layers to be redrawn on each animation frame
+         * @method
+         * @memberof Kinetic.Animation.prototype
+         * @param {Kinetic.Layer|Array} [layers] layer(s) to be redrawn.&nbsp; Can be a layer, an array of layers, or null.  Not specifying a node will result in no redraw.
+         */
+        setLayers: function(layers) {
+            var lays = [];
+            // if passing in no layers
+            if (!layers) {
+                lays = [];
+            }
+            // if passing in an array of Layers
+            // NOTE: layers could be an array or Kinetic.Collection.  for simplicity, I'm just inspecting
+            // the length property to check for both cases
+            else if (layers.length > 0) {
+                lays = layers;
+            }
+            // if passing in a Layer
+            else {
+                lays = [layers];
+            }
+
+            this.layers = lays;
+        },
+        /**
+         * get layers
+         * @method
+         * @memberof Kinetic.Animation.prototype
+         */
+        getLayers: function() {
+            return this.layers;
+        },
+        /**
+         * add layer.  Returns true if the layer was added, and false if it was not
+         * @method
+         * @memberof Kinetic.Animation.prototype
+         * @param {Kinetic.Layer} layer
+         */
+        addLayer: function(layer) {
+            var layers = this.layers,
+                len, n;
+
+            if (layers) {
+                len = layers.length;
+
+                // don't add the layer if it already exists
+                for (n = 0; n &lt; len; n++) {
+                    if (layers[n]._id === layer._id) {
+                        return false;
+                    }
+                }
+            }
+            else {
+                this.layers = [];
+            }
+
+            this.layers.push(layer);
+            return true;
+        },
+        /**
+         * determine if animation is running or not.  returns true or false
+         * @method
+         * @memberof Kinetic.Animation.prototype
+         */
+        isRunning: function() {
+            var a = Kinetic.Animation,
+                animations = a.animations,
+                len = animations.length,
+                n;
+
+            for(n = 0; n &lt; len; n++) {
+                if(animations[n].id === this.id) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        /**
+         * start animation
+         * @method
+         * @memberof Kinetic.Animation.prototype
+         */
+        start: function() {
+            var Anim = Kinetic.Animation;
+            this.stop();
+            this.frame.timeDiff = 0;
+            this.frame.lastTime = now();
+            Anim._addAnimation(this);
+        },
+        /**
+         * stop animation
+         * @method
+         * @memberof Kinetic.Animation.prototype
+         */
+        stop: function() {
+            Kinetic.Animation._removeAnimation(this);
+        },
+        _updateFrameObject: function(time) {
+            this.frame.timeDiff = time - this.frame.lastTime;
+            this.frame.lastTime = time;
+            this.frame.time += this.frame.timeDiff;
+            this.frame.frameRate = 1000 / this.frame.timeDiff;
+        }
+    };
+    Kinetic.Animation.animations = [];
+    Kinetic.Animation.animIdCounter = 0;
+    Kinetic.Animation.animRunning = false;
+
+    Kinetic.Animation._addAnimation = function(anim) {
+        this.animations.push(anim);
+        this._handleAnimation();
+    };
+    Kinetic.Animation._removeAnimation = function(anim) {
+        var id = anim.id,
+            animations = this.animations,
+            len = animations.length,
+            n;
+
+        for(n = 0; n &lt; len; n++) {
+            if(animations[n].id === id) {
+                this.animations.splice(n, 1);
+                break;
+            }
+        }
+    };
+
+    Kinetic.Animation._runFrames = function() {
+        var layerHash = {},
+            animations = this.animations,
+            anim, layers, func, n, i, layersLen, layer, key, needRedraw;
+        /*
+         * loop through all animations and execute animation
+         *  function.  if the animation object has specified node,
+         *  we can add the node to the nodes hash to eliminate
+         *  drawing the same node multiple times.  The node property
+         *  can be the stage itself or a layer
+         */
+        /*
+         * WARNING: don't cache animations.length because it could change while
+         * the for loop is running, causing a JS error
+         */
+
+        for(n = 0; n &lt; animations.length; n++) {
+            anim = animations[n];
+            layers = anim.layers;
+            func = anim.func;
+
+
+            anim._updateFrameObject(now());
+            layersLen = layers.length;
+
+            // if animation object has a function, execute it
+            if (func) {
+                // allow anim bypassing drawing
+                needRedraw = (func.call(anim, anim.frame) !== false);
+            } else {
+                needRedraw = true;
+            }
+            if (needRedraw) {
+                for (i = 0; i &lt; layersLen; i++) {
+                    layer = layers[i];
+
+                    if (layer._id !== undefined) {
+                        layerHash[layer._id] = layer;
+                    }
+                }
+            }
+        }
+
+        for (key in layerHash) {
+            layerHash[key].draw();
+        }
+    };
+    Kinetic.Animation._animationLoop = function() {
+        var Anim = Kinetic.Animation;
+
+        if(Anim.animations.length) {
+            requestAnimFrame(Anim._animationLoop);
+            Anim._runFrames();
+        }
+        else {
+            Anim.animRunning = false;
+        }
+    };
+    Kinetic.Animation._handleAnimation = function() {
+        var that = this;
+        if(!this.animRunning) {
+            this.animRunning = true;
+            that._animationLoop();
+        }
+    };
+
+    var moveTo = Kinetic.Node.prototype.moveTo;
+    Kinetic.Node.prototype.moveTo = function(container) {
+        moveTo.call(this, container);
+    };
+
+    /**
+     * batch draw
+     * @method
+     * @memberof Kinetic.Base.prototype
+     */
+    Kinetic.BaseLayer.prototype.batchDraw = function() {
+        var that = this,
+            Anim = Kinetic.Animation;
+
+        if (!this.batchAnim) {
+            this.batchAnim = new Anim(function() {
+                if (that.lastBatchDrawTime && now() - that.lastBatchDrawTime > BATCH_DRAW_STOP_TIME_DIFF) {
+                    that.batchAnim.stop();
+                }
+            }, this);
+        }
+
+        this.lastBatchDrawTime = now();
+
+        if (!this.batchAnim.isRunning()) {
+            this.draw();
+            this.batchAnim.start();
+        }
+    };
+
+    /**
+     * batch draw
+     * @method
+     * @memberof Kinetic.Stage.prototype
+     */
+    Kinetic.Stage.prototype.batchDraw = function() {
+        this.getChildren().each(function(layer) {
+            layer.batchDraw();
+        });
+    };
+})(this);
+</pre>
+	</article>
+</section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="copyright">
+		KineticJS Copyright © 2015 The contributors to the KineticJS project.
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a>
+		on Tue Jan 13th 2015 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : true,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+	<script>
+		(function ( i, s, o, g, r, a, m ) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push( arguments )
+			}, i[r].l = 1 * new Date();
+			a = s.createElement( o ),
+				m = s.getElementsByTagName( o )[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore( a, m )
+		})( window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga' );
+
+		ga( 'create', 'UA-54202824-2', 'http://lavrton.github.io/KineticJS' );
+		ga( 'send', 'pageview' );
+	</script>
+	
+
+</body>
+</html>
