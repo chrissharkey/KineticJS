@@ -3,6 +3,14 @@
 </p>
 
 <hr/>
+<h3>Download v5.1.9</h3>
+<hr/>
+
+* [kinetic.js](https://cdn.rawgit.com/lavrton/KineticJS/v5.1.9/kinetic.js), [kinetic.min.js](https://cdn.rawgit.com/lavrton/KineticJS/v5.1.9/kinetic.min.js)
+* `bower install kinetic`
+* `npm install kinetic`
+
+<hr/>
 <h3>Features</h3>
 <hr/>
 
