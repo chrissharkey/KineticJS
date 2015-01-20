@@ -3,6 +3,15 @@
 </p>
 
 <hr/>
+<h3>Demos</h3>
+<hr/>
+
+* [Drag and Drop](http://lavrton.github.io/KineticJS/Drag_and_Drop/Drag_and_Drop.html)
+* [Elastic Stars](http://lavrton.github.io/KineticJS/Sandbox/Elastic_Stars.html)
+* [Invert Filter](http://lavrton.github.io/KineticJS/Filters/Invert.html)
+* a lot of demos available on [Tutorials Page](http://lavrton.github.io/KineticJS/Getting_Started.html)
+
+<hr/>
 <h3>Download v5.1.9</h3>
 <hr/>
 
