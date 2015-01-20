@@ -3,10 +3,6 @@
 </p>
 
 <hr/>
-<h3>[Demo](http://lavrton.github.io/KineticJS/Sandbox/Elastic_Stars.html)</h3>
-<hr/>
-
-<hr/>
 <h3>Download v5.1.9</h3>
 <hr/>
 
