@@ -12,11 +12,11 @@
 * a lot of demos available on [Tutorials Page](http://lavrton.github.io/KineticJS/Getting_Started.html)
 
 <hr/>
-<h3>Download v5.1.9</h3>
+<h3>Download v5.2.0</h3>
 <hr/>
 
-* Full version [kinetic.js](https://cdn.rawgit.com/lavrton/KineticJS/v5.1.9/kinetic.js)
-* Minified [kinetic.min.js](https://cdn.rawgit.com/lavrton/KineticJS/v5.1.9/kinetic.min.js)
+* Full version [kinetic.js](https://cdn.rawgit.com/lavrton/KineticJS/v5.2.0/kinetic.js)
+* Minified [kinetic.min.js](https://cdn.rawgit.com/lavrton/KineticJS/v5.2.0/kinetic.min.js)
 * `bower install kinetic`
 * `npm install kinetic`
 
